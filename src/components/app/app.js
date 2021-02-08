@@ -51,7 +51,7 @@ export default class App extends Component {
             <ItemList onPersonSelected={ this.onPersonSelected } />
           </div>
           <div className="col-md-6">
-            <PersonDetails presonaId={ this.state.selectedPerson }/>
+            <PersonDetails personId={ this.state.selectedPerson }/>
           </div>
         </div>
       </div>
