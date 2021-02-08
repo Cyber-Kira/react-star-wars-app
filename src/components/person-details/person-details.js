@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import SwapiService from '../../services';
+import ErrorIndicator from '../error-indicator';
+import Spinner from '../spinner';
 
 import './person-details.css';
 
@@ -9,8 +11,24 @@ export default class PersonDetails extends Component {
   swapiService = new SwapiService();
 
   state = {
-    person: null
+    person: null,
+    loading: true,
+    error: false
   }
+
+  onPersonLoaded = (person) => {
+    this.setState({ 
+      person,
+      loading: false
+     });
+  };
+
+  onError = (error) => {
+    this.setState({ 
+      error: true,
+      loading: false
+    });
+  };
 
   updatePerson() {
     const { personId } = this.props;
@@ -18,10 +36,10 @@ export default class PersonDetails extends Component {
       return;
     }
 
-    this.swapiService.getPerson(personId)
-      .then((person) => {
-        this.setState({ person });
-      })
+    this.swapiService
+      .getPerson(personId)
+      .then(this.onPersonLoaded)
+      .catch(this.onError);
   }
 
   componentDidMount() {
@@ -31,25 +49,44 @@ export default class PersonDetails extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.personId !== prevProps.personId) {
       this.updatePerson();
-    }
+    };
   }
-
+  
   render() {
+    const { person, loading, error } = this.state;
 
-    if(!this.state.person) {
-      return <span>Select a person from a list</span>;
+    if (!person) {
+      return (
+        <div className="person-details card">
+          <span className="not-selected">Please select a person from the list</span>
+        </div>
+      )
     }
 
-    const { person: { 
-      id, name, gender,
-      birthYear, eyeColor
-    }} = this.state;
+    const hasData = !(loading || error);
+
+    const errorMessage = error ? <ErrorIndicator /> : null;
+    const spinner = loading ? <Spinner /> : null;
+    const content = hasData ? <PersonView person={person} /> : null;
 
     return (
       <div className="person-details card">
-        <img className="person-image"
-          src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} alt={name}/>
+        {errorMessage}
+        {spinner}
+        {content}
+      </div>
+    );
+  };
+};
 
+const PersonView = ({ person }) => {
+
+  const { id, name, gender, birthYear, eyeColor } = person;
+
+  return (
+    <>
+        <img className="person-image"
+          src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} alt={name} />
         <div className="card-body">
           <h4>{name}</h4>
           <ul className="list-group list-group-flush">
@@ -67,7 +104,6 @@ export default class PersonDetails extends Component {
             </li>
           </ul>
         </div>
-      </div>
-    )
-  }
-}
+    </>
+  )
+};

@@ -5,6 +5,11 @@
   border: 1px solid #444;
 }
 
+.person-details .not-selected {
+  font-size: 2rem;
+  color: #d4860b;
+}
+
 .person-details .person-image {
   width: 30%;
   height: 30%;
