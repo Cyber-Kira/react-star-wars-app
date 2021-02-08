@@ -22,3 +22,24 @@
 .random-planet .list-group-item .term {
   margin-right: .5rem;
 }
+
+@media only screen and (max-width: 375px) {
+  .random-planet {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .random-planet .planet-image {
+    width: 100%;
+    height: auto;
+  }
+  .random-planet h4 { 
+    margin-top: 1rem;
+    margin-left: 1rem;
+  }
+  .random-planet .list-group-item {
+    padding: .75rem .65rem;;
+  }
+  .random-planet .list-group {
+    margin: .5rem 0 0 1rem;
+  }
+} 
