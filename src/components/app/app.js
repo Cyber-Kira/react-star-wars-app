@@ -10,8 +10,9 @@ import './app.css';
 export default class App extends Component {
 
   state = {
-    showRandomPlanet: true
-  };
+    showRandomPlanet: true,
+    selectedPerson: null
+  }
 
   toggleRandomPlanet = () => {
     this.setState((state) => {
@@ -19,7 +20,13 @@ export default class App extends Component {
         showRandomPlanet: !state.showRandomPlanet
       }
     });
-  };
+  }
+
+  onPersonSelected = (id) => {
+    this.setState({ 
+      selectedPerson: id
+    })
+  }
 
   render() {
 
@@ -32,7 +39,7 @@ export default class App extends Component {
         <Header />
 
         <button
-          className="toggle-planet btn btn-warning btn-lg col-sm"
+          className="toggle-planet btn btn-warning btn-lg col-sm col-lg-3"
           onClick={ this.toggleRandomPlanet }>
           Toggle Random Planet
         </button>
@@ -41,10 +48,10 @@ export default class App extends Component {
 
         <div className="row mb2">
           <div className="col-md-6">
-            <ItemList />
+            <ItemList onPersonSelected={ this.onPersonSelected } />
           </div>
           <div className="col-md-6">
-            <PersonDetails />
+            <PersonDetails presonaId={ this.state.selectedPerson }/>
           </div>
         </div>
       </div>
