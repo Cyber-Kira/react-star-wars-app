@@ -1,0 +1,24 @@
+.error-indicator {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  
+  line-height: 2rem;
+  font-size: 1.2rem;
+
+  color: #ffa462;
+
+  margin: 0 auto;
+}
+
+.boom {
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+
+.error-indicator img { 
+  width: 5rem;
+  margin-bottom: 15px;
+}
