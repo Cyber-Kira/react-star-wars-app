@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 
 import './people-page.css';
 import ItemList from '../item-list';
-import ItemDetails from '../item-details';
 import ErrorIndicator from '../error-indicator/error-indicator';
 import SwapiService from '../../services/swapi-service';
 import Row from '../row';
 import ErrorBoundry from '../error-boundry';
+import { Record, ItemDetails } from '../item-details';
 export default class PeoplePage extends Component {
 
   swapiService = new SwapiService();
@@ -41,9 +41,19 @@ export default class PeoplePage extends Component {
           </ErrorBoundry>
     );
 
+    const {getPerson, getPersonImage} = this.swapiService;
+
     const itemDetails = (
       <ErrorBoundry>
-        <ItemDetails itemId={ this.state.selectedPerson }/>
+        <ItemDetails 
+          getData={getPerson} 
+          itemId={this.state.selectedPerson} 
+          getImageUrl={getPersonImage}>
+        
+          <Record field="gender" label="Gender" />
+          <Record field="eyeColor" label="Eye Color" />
+        
+        </ItemDetails>
       </ErrorBoundry>
     );
 
