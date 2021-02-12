@@ -7,7 +7,7 @@ import './item-list.css';
 
 export default class ItemList extends Component {
   state = { 
-    peopleList: null,
+    itemList: null,
     loading: true,
     error: false
   }
