@@ -7,8 +7,6 @@ import SwapiService from '../../services';
 
 import './app.css';
 import PeoplePage from '../people-page';
-import ItemDetails from '../item-details';
-import Row from '../row';
 
 export default class App extends Component {
 
@@ -40,24 +38,13 @@ export default class App extends Component {
       return <ErrorIndicator />;
     }
 
-    // const planet = this.state.showRandomPlanet ?
-      // <RandomPlanet /> :
-      // null;
-
-      const {getPerson, getStarship, getPersonImage, getStarshipImage} = this.swapiService;
-
-    const personDetails = (
-      <ItemDetails getData={getPerson} itemId={11} getImageUrl={getPersonImage} />
-    )
-
-    const starshipDetails = (
-      <ItemDetails getData={getStarship} itemId={5} getImageUrl={getStarshipImage} />
-    )
+    const planet = this.state.showRandomPlanet ?
+      <RandomPlanet /> :
+      null;
 
     return (
       <div className="stardb-app">
         <Header />
-{/* 
         <button
           className="toggle-planet btn btn-warning btn-lg col-sm col-lg-3"
           onClick={ this.toggleRandomPlanet }>
@@ -66,10 +53,7 @@ export default class App extends Component {
 
         { planet }
 
-        <PeoplePage /> */}
-        <Row
-          left={personDetails}
-          right={starshipDetails} />
+        <PeoplePage />
       </div>
     );
   }
