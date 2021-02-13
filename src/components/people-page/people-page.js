@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './people-page.css';
 import ItemList from '../item-list';
 import ErrorIndicator from '../error-indicator/error-indicator';
-import SwapiService from '../../services/swapi-service';
+import SwapiService from '../../services';
 import Row from '../row';
 import ErrorBoundry from '../error-boundry';
 import { Record, ItemDetails } from '../item-details';
@@ -22,7 +22,7 @@ export default class PeoplePage extends Component {
   };
 
   render() {
-    
+
     if (this.state.hasError) {
       return <ErrorIndicator />;
     }
@@ -30,8 +30,7 @@ export default class PeoplePage extends Component {
     const itemList = (
           <ErrorBoundry>
             <ItemList 
-              onPersonSelected={ this.onPersonSelected }
-              getData={ this.swapiService.getAllPeople }>
+              onItemSelected={ this.onPersonSelected }>
               
               {(i) => (
                 `${i.name} (${i.birthYear})`
