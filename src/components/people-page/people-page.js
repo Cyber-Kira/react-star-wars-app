@@ -27,16 +27,9 @@ export default class PeoplePage extends Component {
     }
 
     const itemList = (
-          <ErrorBoundry>
-            <PersonList 
-              onItemSelected={ this.onPersonSelected }>
-              
-              {(i) => (
-                `${i.name} (${i.birthYear})`
-              )}
-
-            </PersonList>
-          </ErrorBoundry>
+      <ErrorBoundry>
+        <PersonList onItemSelected={ this.onPersonSelected } />
+      </ErrorBoundry>
     );
 
     const itemDetails = (
