@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ErrorIndicator from '../error-indicator';
 import Spinner from '../spinner';
 
-const withDetails = (View, getData, getImageUrl) => {
+const withDetails = (View,record, getData, getImageUrl) => {
   return class extends Component {
 
     state = {
@@ -57,7 +57,9 @@ const withDetails = (View, getData, getImageUrl) => {
       }
 
       return (
-        <View {...this.props} data={data} image={image} />
+        <View {...this.props} data={data} image={image} children={record}>
+          {record}
+        </View>
       );
     };
   };
