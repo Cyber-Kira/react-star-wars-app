@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
+
+import SwapiService from '../../services';
+import ErrorIndicator from '../error-indicator';
+import Spinner from '../spinner';
 
 import './item-details.css';
 
@@ -11,28 +15,90 @@ const Record = ({ item, field, label }) => {
   )
 };
 
-const ItemDetails = (props) => {
-  const { data, image, children } = props;
+export {
+  Record
+}
+export default class ItemDetails extends Component {
 
-  if (!data) {
-    return (
-      <div className="item-details card">
-        <span className="not-selected">Please select an item from the list</span>
-      </div>
-    )
+  swapiService = new SwapiService();
+
+  state = {
+    item: null,
+    image: null,
+    loading: true,
+    error: false
   }
 
-  return (
-    <div className="item-details card">
-      <ItemView
-        item={data}
-        image={image}
-        children={children} />
-    </div>
-  );
+  onItemLoaded = (item) => {
+    const {getImageUrl} = this.props;
+    
+    this.setState({
+      item,
+      loading: false,
+      image: getImageUrl(item)
+     });
+  };
+
+  onError = (error) => {
+    this.setState({ 
+      error: true,
+      loading: false
+    });
+  };
+
+  updateItem() {
+    const { itemId, getData } = this.props;
+    if (!itemId) {
+      return;
+    }
+    
+    getData(itemId)
+      .then(this.onItemLoaded)
+      .catch(this.onError);
+  }
+
+  componentDidMount() {
+    this.updateItem();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.itemId !== prevProps.itemId) {
+      this.updateItem();
+    };
+  }
+  
+  render() {
+    const { item, loading, error, image } = this.state;
+
+    if (!item) {
+      return (
+        <div className="item-details card">
+          <span className="not-selected">Please select an item from the list</span>
+        </div>
+      )
+    }
+
+    const hasData = !(loading || error);
+
+    const errorMessage = error ? <ErrorIndicator /> : null;
+    const spinner = loading ? <Spinner /> : null;
+    const content = hasData ? <ItemView 
+                                item={item} 
+                                image={image}
+                                children={this.props.children} /> : null;
+
+    return (
+      <div className="item-details card">
+        {errorMessage}
+        {spinner}
+        {content}
+      </div>
+    );
+  };
 };
 
 const ItemView = ({ item, image, children }) => {
+
   const { name } = item;
 
   return (
@@ -52,8 +118,3 @@ const ItemView = ({ item, image, children }) => {
     </>
   )
 };
-
-export {
-  ItemDetails,
-  Record
-}
