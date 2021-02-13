@@ -6,7 +6,6 @@ import ErrorIndicator from '../error-indicator/error-indicator';
 import SwapiService from '../../services';
 import Row from '../row';
 import ErrorBoundry from '../error-boundry';
-import { Record, ItemDetails } from '../item-details';
 export default class PeoplePage extends Component {
 
   swapiService = new SwapiService();
