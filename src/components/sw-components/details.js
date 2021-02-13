@@ -25,18 +25,18 @@ const withChildFunction = (Wrapped, record) => {
 };
 
 const personRecord = [
-  <Record field="gender" label="Gender"/>,
-  <Record field="eyeColor" label="Eye color"/>
+  <Record field="gender" label="Gender" key={1}/>,
+  <Record field="eyeColor" label="Eye color" key={2}/>
 ];
 
 const planetRecord = [
-  <Record field="population" label="Rotation Period"/>,
-  <Record field="diameter" label="Diameter"/>
+  <Record field="population" label="Rotation Period" key={1}/>,
+  <Record field="diameter" label="Diameter" key={2}/>
 ];
 
 const starshipRecord = [
-  <Record field="model" label="Model"/>,
-  <Record field="costInCredits" label="Cost"/>
+  <Record field="model" label="Model" key={1}/>,
+  <Record field="costInCredits" label="Cost" key={2}/>
 ];
 
 const PersonDetails = withDetails(
