@@ -14,26 +14,45 @@ const {
   getStarshipImage
 } = swapiService;
 
+const withChildFunction = (Wrapped, record) => {
+  return (props) => {
+    return (
+      <Wrapped {...props}>
+        {record}
+      </Wrapped>
+    );
+  };
+};
+
 const personRecord = [
   <Record field="gender" label="Gender"/>,
   <Record field="eyeColor" label="Eye color"/>
 ];
 
-const PlanetRecord = [
+const planetRecord = [
   <Record field="population" label="Rotation Period"/>,
   <Record field="diameter" label="Diameter"/>
 ];
 
-const StarshipRecord = [
+const starshipRecord = [
   <Record field="model" label="Model"/>,
   <Record field="costInCredits" label="Cost"/>
 ];
 
-const PersonDetails = withDetails(ItemDetails, personRecord, getPerson, getPersonImage);
+const PersonDetails = withDetails(
+                                  withChildFunction(ItemDetails, personRecord),
+                                  getPerson,
+                                  getPersonImage);
 
-const PlanetDetails = withDetails(ItemDetails, PlanetRecord, getPlanet, getPlanetImage);
+const PlanetDetails = withDetails(
+                                  withChildFunction(ItemDetails, planetRecord),
+                                  getPlanet,
+                                  getPlanetImage);
 
-const StarshipDetails = withDetails(ItemDetails, StarshipRecord, getStarship, getStarshipImage);
+const StarshipDetails = withDetails(
+                                  withChildFunction(ItemDetails, starshipRecord),
+                                  getStarship,
+                                  getStarshipImage);
 
 export {
   PersonDetails,
