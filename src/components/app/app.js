@@ -5,6 +5,7 @@ import RandomPlanet from '../random-planet';
 import ErrorIndicator from '../error-indicator';
 import SwapiService from '../../services';
 import PeoplePage from '../people-page';
+import { SwapiServiceProvider } from '../swapi-service-context';
 
 import './app.css';
 
@@ -43,18 +44,20 @@ export default class App extends Component {
       null;
 
     return (
-      <div className="stardb-app">
-        <Header />
-        <button
-          className="toggle-planet btn btn-warning btn-lg col-sm col-lg-3"
-          onClick={ this.toggleRandomPlanet }>
-          Toggle Random Planet
-        </button>
+      <SwapiServiceProvider value={this.swapiService}>
+        <div className="stardb-app">
+          <Header />
+          <button
+            className="toggle-planet btn btn-warning btn-lg col-sm col-lg-3"
+            onClick={ this.toggleRandomPlanet }>
+            Toggle Random Planet
+          </button>
 
-        { planet }
+          { planet }
 
-        <PeoplePage />
-      </div>
+          <PeoplePage />
+        </div>
+      </SwapiServiceProvider>
     );
   }
 }
