@@ -1,21 +1,21 @@
 import { 
   PersonList,
-  PlanetList,
-  StarshipList
+  // PlanetList,
+  // StarshipList
 } from './item-lists';
 
 import { 
   PersonDetails,
-  PlanetDetails,
-  StarshipDetails
+  // PlanetDetails,
+  // StarshipDetails
 } from './details';
 
 export {
   PersonList,
-  PlanetList,
-  StarshipList,
+  // PlanetList,
+  // StarshipList,
   PersonDetails,
-  PlanetDetails,
-  StarshipDetails
+  // PlanetDetails,
+  // StarshipDetails
 }
 

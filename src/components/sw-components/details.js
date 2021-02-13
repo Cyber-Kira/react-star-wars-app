@@ -1,7 +1,7 @@
-import { ItemDetails } from '../item-details';
-import { withDetails } from '../hoc-helpers/';
+import ItemDetails from '../item-details';
 import SwapiService from '../../services';
-import {Record} from '../item-details';
+import {Record} from '../item-details/item-details';
+import { SwapiServiceConsumer } from '../swapi-service-context';
 
 const swapiService = new SwapiService();
 
@@ -14,20 +14,18 @@ const {
   getStarshipImage
 } = swapiService;
 
-const withChildFunction = (Wrapped, record) => {
-  return (props) => {
-    return (
-      <Wrapped {...props}>
-        {record}
-      </Wrapped>
-    );
-  };
-};
+const PersonDetails = ({itemId}) => {
+  return (
+    <ItemDetails
+      itemId={itemId}
+      getData={getPerson}
+      getImageUrl={getPersonImage}>
 
-const personRecord = [
-  <Record field="gender" label="Gender" key={1}/>,
-  <Record field="eyeColor" label="Eye color" key={2}/>
-];
+      <Record field="gender" label="Gender"/>
+      <Record field="eyeColor" label="Eye color"/>
+    </ItemDetails>
+  )
+}
 
 const planetRecord = [
   <Record field="population" label="Rotation Period" key={1}/>,
@@ -39,23 +37,8 @@ const starshipRecord = [
   <Record field="costInCredits" label="Cost" key={2}/>
 ];
 
-const PersonDetails = withDetails(
-                                  withChildFunction(ItemDetails, personRecord),
-                                  getPerson,
-                                  getPersonImage);
-
-const PlanetDetails = withDetails(
-                                  withChildFunction(ItemDetails, planetRecord),
-                                  getPlanet,
-                                  getPlanetImage);
-
-const StarshipDetails = withDetails(
-                                  withChildFunction(ItemDetails, starshipRecord),
-                                  getStarship,
-                                  getStarshipImage);
-
 export {
-  PersonDetails,
-  PlanetDetails,
-  StarshipDetails
+  PersonDetails
+  // PlanetDetails,
+  // StarshipDetails
 }
