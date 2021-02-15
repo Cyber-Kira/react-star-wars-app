@@ -59,10 +59,11 @@ export default class SwapiService {
   }
 
   _transformPlanet = (planet) => {
+    const changedPopulation = planet.population.replace(/(\d)(?=(\d{3})+$)/g, '$1 ');
     return {
       id: this._extractId(planet),
       name: planet.name,
-      population: planet.population,
+      population: changedPopulation,
       rotationPeriod: planet.rotation_period,
       diameter: planet.diameter
     };
