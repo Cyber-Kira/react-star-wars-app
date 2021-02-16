@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Header from '../header';
 import RandomPlanet from '../random-planet';
 import ErrorIndicator from '../error-indicator';
-import SwapiService from '../../services';
+import { SwapiService, DummySwapiService } from '../../services';
 import PeoplePage from '../people-page';
 import { SwapiServiceProvider } from '../swapi-service-context';
 
@@ -11,7 +11,7 @@ import './app.css';
 
 export default class App extends Component {
 
-  swapiService = new SwapiService();
+  swapiService = new DummySwapiService();
 
   state = {
     showRandomPlanet: true,

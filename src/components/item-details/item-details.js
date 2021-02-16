@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import SwapiService from '../../services';
 import ErrorIndicator from '../error-indicator';
 import Spinner from '../spinner';
 
@@ -20,7 +19,6 @@ export {
 }
 export default class ItemDetails extends Component {
 
-  swapiService = new SwapiService();
 
   state = {
     item: null,
