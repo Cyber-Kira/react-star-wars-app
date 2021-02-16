@@ -13,11 +13,12 @@ const withChildFunction = (Wrapped, fn) => {
   };
 };
 
-const renderName = (({name, birthYear}) => (
-  `${name} (${birthYear})`
+const renderNameAndBirthDate = (({name, birthYear}) => (
+  `${name} (birth: ${birthYear})`
 ));
+const renderName = ({name}) => name;
 const renderModelAndName = (({name, model}) => (
-  `${name} (${model})`
+  `${name} (model: ${model})`
 ));
 
 const mapPersonMethodsToProps = (swapiService) => {
@@ -40,7 +41,7 @@ const mapStarshipMethodsToProps = (swapiService) => {
 
 const PersonList = withSwapiService(
                         withData(
-                          withChildFunction(ItemList, renderName)), mapPersonMethodsToProps);
+                          withChildFunction(ItemList, renderNameAndBirthDate)), mapPersonMethodsToProps);
 
 const PlanetList = withSwapiService(
                         withData(
