@@ -8,9 +8,19 @@ const withData = (View) => {
     state = { 
       data: null,
       error: false
+    };
+
+    componentDidUpdate(prevProps) {
+      if (this.props.getData !== prevProps.getData) {
+        this.update();
+      }
     }
   
     componentDidMount() {
+      this.update();
+    }
+
+    update() {
       this.props.getData()
         .then(this.onListLoaded)
         .catch(this.onError);
