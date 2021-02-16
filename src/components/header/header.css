@@ -26,6 +26,11 @@
   color: #00bc8c;
 }
 
+.header button {
+  height: 2.2rem;
+  margin-top: 3px;
+}
+
 @media only screen and (max-width: 991px) {
   .header {
     flex-direction: column;
