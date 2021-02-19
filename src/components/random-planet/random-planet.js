@@ -46,10 +46,12 @@ const RandomPlanet = (props) => {
 
   useEffect(() => {
     const { updateInterval } = props;
-    const interval = setInterval(updatePlanet, 5000);
+    let cancelled = false;
+    const interval = setInterval(!cancelled && updatePlanet, 50);
 
     return () => {
       clearInterval(interval);
+      cancelled = true;
     }
   });
 
