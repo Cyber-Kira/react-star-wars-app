@@ -13,6 +13,7 @@ import {
 } from '../pages';
 
 import './app.css';
+import { StarshipDetails } from '../sw-components';
 
 export default class App extends Component {
 
@@ -61,9 +62,15 @@ export default class App extends Component {
             path="/planets"
             component={PlanetPage} />
           <Route 
+            exact
             path="/starships"
             component={StarshipPage} />
-              
+          <Route
+            path="/starships/:id"
+            render={({match}) => {
+              const {id} = match.params;
+              return <StarshipDetails itemId={id} />;
+            }} />
           </div>
         </Router>
       </SwapiServiceProvider>
