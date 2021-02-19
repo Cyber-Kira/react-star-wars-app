@@ -1,4 +1,4 @@
-import React, { Component, useCallback } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 
 import Header from '../header';
@@ -53,15 +53,16 @@ export default class App extends Component {
 
           <RandomPlanet /> 
 
+          <Route exact path="/" render={() => <h2>Welcome to StarDB</h2>} />
           <Route 
             path="/people"
-            conponent={PeoplePage} />
+            component={PeoplePage} />
           <Route 
             path="/planets"
-            conponent={PlanetPage} />
+            component={PlanetPage} />
           <Route 
-            path="/people"
-            conponent={StarshipPage} />
+            path="/starships"
+            component={StarshipPage} />
               
           </div>
         </Router>
