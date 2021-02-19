@@ -40,20 +40,22 @@ const RandomPlanet = (props) => {
 
   const swapiService = new SwapiService();
 
-  const [planet, setPlanet] = useState([]);
+  const [planet, setPlanet] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   useEffect(() => {
     const { updateInterval } = props;
     let cancelled = false;
-    const interval = setInterval(!cancelled && updatePlanet, 50);
+
+    updatePlanet();
+    const interval = setInterval(!cancelled && updatePlanet, 10000);
 
     return () => {
-      clearInterval(interval);
       cancelled = true;
+      clearInterval(interval);
     }
-  });
+  }, []);
 
   const onPlanetLoaded = (planet) => {
     console.log(planet)
@@ -70,8 +72,8 @@ const RandomPlanet = (props) => {
     const id = Math.floor(Math.random() * 25 + 2);
     swapiService
       .getPlanet(id)
-      .then(onPlanetLoaded)
-      .catch(onError);
+        .then(onPlanetLoaded)
+        .catch(onError);
   };
 
   const hasData = !(loading || error);
